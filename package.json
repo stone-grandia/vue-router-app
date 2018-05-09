@@ -1,0 +1,15 @@
+{
+  "name": "vue-router-app",
+  "version": "1.0.0",
+  "description": "vue router for web app",
+  "author": "stone",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"no test specified\" && exit 0"
+  },
+  "devDependencies": {
+    "webpack": "^3.6.0"
+  }
+}
