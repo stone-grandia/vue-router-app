@@ -14,7 +14,7 @@ function hack(router) {
     isReplace = true
     originReplace.apply(router, arguments)
   }
-  router.beforeEach(function(to, from, next) {
+  router.afterEach(function(to) {
     if (isPush) {
       if (isReplace) {
         stack.pop()
@@ -26,9 +26,6 @@ function hack(router) {
         stack.push(to.name)
       }
     }
-    next()
-  })
-  router.afterEach(function() {
     isPush = false
     isReplace = false
   })
