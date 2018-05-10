@@ -14,7 +14,7 @@ function hack(router) {
     isReplace = true
     originReplace.apply(router, arguments)
   }
-  router.afterEach(function(to) {
+  router.afterEach(function(to, from) {
     if (to.name != from.name) {
       if (isPush) {
         if (isReplace) {
