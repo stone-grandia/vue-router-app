@@ -15,15 +15,17 @@ function hack(router) {
     originReplace.apply(router, arguments)
   }
   router.afterEach(function(to) {
-    if (isPush) {
-      if (isReplace) {
-        stack.pop()
-      }
-      stack.push(to.name)
-    } else {
-      stack.pop()
-      if (stack.length == 0) {
+    if (to.name != from.name) {
+      if (isPush) {
+        if (isReplace) {
+          stack.pop()
+        }
         stack.push(to.name)
+      } else {
+        stack.pop()
+        if (stack.length == 0) {
+          stack.push(to.name)
+        }
       }
     }
     isPush = false
