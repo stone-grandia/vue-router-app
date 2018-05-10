@@ -8,7 +8,20 @@
 
 ## usage
 
+```javascript
+    import Vue from 'vue'
+    import VueRouter from 'vue-router'
+    import VueRouterApp from 'vue-router-app'
+
+    ...
+    let router = new VueRouter({...})
+    Vue.use(VueRouterApp, {router})
+    ...
+```
+
+```html
     <app-router></app-router>
+```
 
 ## lifecycle
 
