@@ -5,16 +5,16 @@ var isReplace = false
 function hack(router) {
   var originPush = router.push
   var originReplace = router.replace
-  router.push = function() {
+  router.push = function () {
     isPush = true
     originPush.apply(router, arguments)
   }
-  router.replace = function() {
+  router.replace = function () {
     isPush = true
     isReplace = true
     originReplace.apply(router, arguments)
   }
-  router.afterEach(function(to, from) {
+  router.afterEach(function (to, from) {
     if (to.name != from.name) {
       if (isPush) {
         if (isReplace) {
@@ -34,28 +34,31 @@ function hack(router) {
 }
 
 export default {
-  install: function(Vue, options) {
+  install: function (Vue, options) {
     hack(options.router)
     Vue.component('AppRouter', {
-      data: function() {
-        return {stack: stack}
+      data: function () {
+        return { stack: stack }
       },
       watch: {
-        stack: function() {
+        stack: function () {
           this.emitChange()
         }
       },
-      mounted: function() {
+      mounted: function () {
         this.emitChange()
       },
       methods: {
-        emitChange: function() {
+        emitChange: function () {
           this.$emit('change', stack[stack.length - 1])
         }
       },
-      render: function(h) {
+      render: function (h) {
         var keepAlive = Vue.component('KeepAlive')
         var routerView = Vue.component('router-view')
+        if (!routerView) {
+          routerView = Vue.component('RouterView')
+        }
         return h(keepAlive, {
           props: {
             include: stack
@@ -63,7 +66,7 @@ export default {
         }, [h(routerView)])
       }
     })
-    Vue.prototype.$getRouterStack = function() {
+    Vue.prototype.$getRouterStack = function () {
       return stack
     }
   }
